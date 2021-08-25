@@ -62,6 +62,16 @@ export function makeParser(algebra: any): (expr: string) => any {
                     }
 
                     return expressionToGanja(node.args.head).Log()
+                case "hodge":
+                    if (node.args.kind === ASTKinds.FunctionCallArgs_1) {
+                        throw Error("Hodge takes exactly 1 input but 0 were passed.")
+                    }
+
+                    if (node.args.tail.length !== 0) {
+                        throw Error(`Hodge takes exactly 1 input but ${node.args.tail.length + 1} were passed.`)
+                    }
+
+                    return algebra.Dual(algebra.Reverse(expressionToGanja(node.args.head)))
                 default:
                     throw Error(`Unknown function ${functionName}`)
             }
