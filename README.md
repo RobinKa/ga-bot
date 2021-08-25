@@ -10,4 +10,4 @@ Geometric Algebra bot for Discord.
 1. Clone the repository and run `yarn install`
 2. Copy `.env.template` to `.env` and fill all the fields.
 3. Run `yarn run register-commands` to register the commands on your Discord server.
-3. Run `yarn start` to start the bot.
+4. Run `yarn start` to start the bot.

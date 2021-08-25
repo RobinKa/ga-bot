@@ -74,11 +74,11 @@ export function makeEvaluator(algebra: any): (expr: string) => any {
                     return algebra.Dual(algebra.Reverse(expressionToGanja(node.args.head)))
                 case "grade":
                     if (node.args.kind === ASTKinds.FunctionCallArgs_1) {
-                        throw Error("Grade takes exactly 2 input but 0 were passed.")
+                        throw Error("Grade takes exactly 2 inputs but 0 were passed.")
                     }
 
                     if (node.args.tail.length !== 1) {
-                        throw Error(`Grade takes exactly 2 input but ${node.args.tail.length + 1} were passed.`)
+                        throw Error(`Grade takes exactly 2 inputs but ${node.args.tail.length + 1} were passed.`)
                     }
 
                     return expressionToGanja(node.args.head).Grade(expressionToGanja(node.args.tail[0].sm))

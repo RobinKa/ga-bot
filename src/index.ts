@@ -28,7 +28,7 @@ function ganjaToString(ganjaObject: any): string {
 
     return ganjaObject
         .toString()
-        .replace(/e_(\d+)/g, (basisBlade: string) => `e${numberStringToSubscript(basisBlade.slice(2))}`)
+        .replace(/e_(\d+)/g, (basisBlade: string) => `𝐞${numberStringToSubscript(basisBlade.slice(2))}`)
 }
 
 function makeGanjaHandler(algebra: any, signatureString?: string) {
