@@ -31,6 +31,8 @@ export function makeParser(algebra: any): (expr: string) => any {
                     return algebra.Coeff(`e${node.indices}`, node.negate ? -1 : 1)
                 case ASTKinds.Constant_3:
                     return algebra.Coeff("0", parseFloat(node.value))
+                case ASTKinds.Constant_4:
+                    return algebra.Dual(algebra.Coeff("0", node.negate ? -1 : 1))
             }
         }
 

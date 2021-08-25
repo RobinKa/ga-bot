@@ -21,6 +21,6 @@ FunctionCall := fn='[a-zA-Z]+' _ args=FunctionCallArgs
 FunctionCallArgs := _ '\(' _ '\)' _ | _ '\(' _ head=Expression _ tail={ Separator sm=Expression _ }* '\)' _
 Separator := _ ',' _
 
-Constant :=  _ value='-?\d+\.?\d*' _ 'e_?' indices='[0-9]+' _ |  _ negate='-?' 'e_?' indices='[0-9]+' _ | _ value='-?\d+\.?\d*' _
+Constant :=  _ value='-?\d+\.?\d*' _ 'e_?' indices='[0-9]+' _ |  _ negate='-?' 'e_?' indices='[0-9]+' _ | _ value='-?\d+\.?\d*' _ | _ negate='-?' '[iI]' _
 
 _ := '\s*'
