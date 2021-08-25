@@ -17,6 +17,20 @@ function codeBlock(text: string) {
     return `\`\`\`js\n${text}\`\`\``
 }
 
+function ganjaToString(ganjaObject: any): string {
+    // Converts eg. 123 to ₁₂₃
+    function numberStringToSubscript(numberString: string): string {
+        return numberString
+            .split("")
+            .map(c => String.fromCharCode(0x2080 + parseInt(c)))
+            .join("")
+    }
+
+    return ganjaObject
+        .toString()
+        .replace(/e_(\d+)/g, (basisBlade: string) => `e${numberStringToSubscript(basisBlade.slice(2))}`)
+}
+
 function makeGanjaHandler(algebra: any, signatureString?: string) {
     const evaluateGanja = makeEvaluator(algebra)
 
@@ -34,7 +48,7 @@ function makeGanjaHandler(algebra: any, signatureString?: string) {
             return
         }
 
-        await interaction.editReply(codeBlock(`${signatureString ? `Signature: ${signatureString}\n` : ""}Expression: ${expression}\nResult: ${result.toString()}`))
+        await interaction.editReply(codeBlock(`${signatureString ? `Signature: ${signatureString}\n` : ""}Expression: ${expression}\nResult: ${ganjaToString(result)}`))
     }
 }
 
