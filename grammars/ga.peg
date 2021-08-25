@@ -1,0 +1,26 @@
+Expression := additive=Additive
+
+Additive := _ head=Multiplicative _ tail={ op=AdditiveOperator _ sm=Multiplicative _ }*
+AdditiveOperator := '\+' | '\-'
+
+Multiplicative := _ head=InnerOuter _ tail={ op=MultiplicativeOperator _ sm=InnerOuter _ }*
+MultiplicativeOperator := '\*' | '\/'
+
+InnerOuter := _ head=Power _ tail={ op=InnerOuterOperator _ sm=Power _ }*
+InnerOuterOperator := '\^' | '\|' | '&'
+
+Power := _ head=Unary _ tail={ op=PowerOperator _ sm=Unary _ }*
+PowerOperator := '\*\*'
+
+Unary := _ head={ op=UnaryOperator _ }* primary=Primary _
+UnaryOperator := '~' | '!'
+
+Primary :=  _ '\(' _ expression=Expression _ '\)' _ | _ functionCall=FunctionCall _ | constant=Constant
+
+FunctionCall := fn='[a-zA-Z]+' _ args=FunctionCallArgs
+FunctionCallArgs := _ '\(' _ '\)' _ | _ '\(' _ head=Expression _ tail={ Separator sm=Expression _ }* '\)' _
+Separator := _ ',' _
+
+Constant :=  _ value='-?\d+\.?\d*' _ 'e_?' indices='[0-9]+' _ |  _ negate='-?' 'e_?' indices='[0-9]+' _ | _ value='-?\d+\.?\d*' _
+
+_ := '\s*'
