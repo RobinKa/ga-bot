@@ -1,0 +1,8 @@
+version: "3.9"
+services:
+  ga-bot:
+    restart: always
+    build: .
+    image: tora/ga-bot:latest
+    volumes:
+      - .env:/opt/ga-bot/dist/.env
