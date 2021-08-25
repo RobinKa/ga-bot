@@ -1,7 +1,7 @@
 import { token } from "./config"
 import Discord, { Intents } from "discord.js"
 import * as mathjs from "mathjs"
-import { makeParser } from "./parser"
+import { makeEvaluator } from "./evaluator"
 const Algebra = require("ganja.js")
 
 const commands: Record<string, (interaction: Discord.CommandInteraction) => Promise<void>> = {
@@ -18,7 +18,7 @@ function codeBlock(text: string) {
 }
 
 function makeGanjaHandler(algebra: any, signatureString?: string) {
-    const evaluateGanja = makeParser(algebra)
+    const evaluateGanja = makeEvaluator(algebra)
 
     return async function handleGanja(interaction: Discord.CommandInteraction) {
         await interaction.deferReply()

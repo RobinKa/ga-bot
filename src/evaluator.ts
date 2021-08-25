@@ -1,6 +1,6 @@
 import { Additive, ASTKinds, Constant, Expression, FunctionCall, InnerOuter, Multiplicative, parse, Power, Primary, Unary } from "./__generated__/ga"
 
-export function makeParser(algebra: any): (expr: string) => any {
+export function makeEvaluator(algebra: any): (expr: string) => any {
     const unaryOperations: Record<string, any> = {
         "~": algebra.Reverse,
         "!": algebra.Dual,
@@ -72,6 +72,16 @@ export function makeParser(algebra: any): (expr: string) => any {
                     }
 
                     return algebra.Dual(algebra.Reverse(expressionToGanja(node.args.head)))
+                case "grade":
+                    if (node.args.kind === ASTKinds.FunctionCallArgs_1) {
+                        throw Error("Grade takes exactly 2 input but 0 were passed.")
+                    }
+
+                    if (node.args.tail.length !== 1) {
+                        throw Error(`Grade takes exactly 2 input but ${node.args.tail.length + 1} were passed.`)
+                    }
+
+                    return expressionToGanja(node.args.head).Grade(expressionToGanja(node.args.tail[0].sm))
                 default:
                     throw Error(`Unknown function ${functionName}`)
             }
