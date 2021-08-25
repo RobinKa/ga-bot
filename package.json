@@ -12,7 +12,7 @@
     "mathjs": "^9.4.4"
   },
   "scripts": {
-    "build": "tsc",
+    "build": "npm run generate-parser && tsc",
     "start": "npm run build && node dist/index.js",
     "register-commands": "npm run build && node dist/registercommands.js",
     "generate-parser": "tspeg ./grammars/ga.peg ./src/__generated__/ga.ts",
